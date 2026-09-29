@@ -1,0 +1,23 @@
+# Python and local tools
+.venv/
+.uv-cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local configuration and logs
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.log
+
+# Generated web and notebook assets
+web/node_modules/
+web/dist/
+data/flowers/
+data/coco128/
+artifacts/**/*.pt
+artifacts/**/*.pth
+artifacts/**/*.faiss
+*.zip
