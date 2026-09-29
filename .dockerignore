@@ -1,0 +1,8 @@
+.venv
+.git
+.codex
+.impeccable
+.pytest_cache
+**/__pycache__
+*.zip
+uv.lock
