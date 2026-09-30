@@ -1,4 +1,5 @@
 torch
+torchvision
 transformers>=4.56
 sentence-transformers>=3.0
 accelerate
@@ -7,3 +8,4 @@ fastapi>=0.115
 uvicorn[standard]
 streamlit>=1.50
 requests
+python-multipart>=0.0.20

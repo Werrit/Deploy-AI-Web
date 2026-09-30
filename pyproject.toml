@@ -12,7 +12,9 @@ dependencies = [
     "sentence-transformers>=6.1.0",
     "streamlit>=1.50.0",
     "torch>=2.14.0",
+    "torchvision>=0.25.0",
     "transformers>=5.17.0",
+    "python-multipart>=0.0.20",
 ]
 
 [tool.uv.sources]

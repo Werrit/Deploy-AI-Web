@@ -7,12 +7,16 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
+from api.routers.classifier import router as classifier_router
 from api.routers.chat import router as chat_router
 from config import CORS_ORIGINS, DEVICE, ENABLED_MODELS
 
 log = logging.getLogger("api")
 MODELS: dict = {}
-LOADERS = {"llm": ("core.llm", "RAGChatbot")}
+LOADERS = {
+    "llm": ("core.llm", "RAGChatbot"),
+    "classifier": ("core.classifier", "ImageClassifier"),
+}
 
 
 def _load_models():
@@ -38,6 +42,7 @@ app = FastAPI(title="AI Web Apps API", version="1.0.0", lifespan=lifespan)
 app.state.models = MODELS
 app.add_middleware(CORSMiddleware, allow_origins=CORS_ORIGINS, allow_methods=["*"], allow_headers=["*"])
 app.include_router(chat_router)
+app.include_router(classifier_router)
 
 
 @app.middleware("http")
@@ -50,4 +55,4 @@ async def timing(request: Request, call_next):
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "device": DEVICE, "models": {name: name in MODELS for name in sorted(ENABLED_MODELS)}}
+    return {"status": "ok", "device": DEVICE, "models": {name: name in MODELS for name in sorted(LOADERS)}}
