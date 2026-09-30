@@ -12,12 +12,6 @@ __pycache__/
 .streamlit/secrets.toml
 *.log
 
-# Generated web and notebook assets
-web/node_modules/
-web/dist/
-data/flowers/
-data/coco128/
-artifacts/**/*.pt
-artifacts/**/*.pth
-artifacts/**/*.faiss
+Dockerfile
+
 *.zip
