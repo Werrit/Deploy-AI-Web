@@ -12,6 +12,11 @@ __pycache__/
 .streamlit/secrets.toml
 *.log
 
-Dockerfile
+shell.nix
+data/flowers/
+data/*.tgz
+artifacts/classifier/split.json
+node_modules/
+.cache/
 
 *.zip

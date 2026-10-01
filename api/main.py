@@ -6,10 +6,11 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from api.routers.classifier import router as classifier_router
 from api.routers.chat import router as chat_router
-from config import CORS_ORIGINS, DEVICE, ENABLED_MODELS
+from config import CORS_ORIGINS, DEVICE, ENABLED_MODELS, ROOT
 
 log = logging.getLogger("api")
 MODELS: dict = {}
@@ -56,3 +57,6 @@ async def timing(request: Request, call_next):
 @app.get("/api/health")
 def health():
     return {"status": "ok", "device": DEVICE, "models": {name: name in MODELS for name in sorted(LOADERS)}}
+
+
+app.mount("/", StaticFiles(directory=ROOT / "web", html=True), name="web")

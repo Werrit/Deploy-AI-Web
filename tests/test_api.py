@@ -51,6 +51,14 @@ class ChatApiTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["answer"], "Được 7 ngày.")
 
+    def test_web_ui_and_api_share_one_server(self):
+        response = self.client.get("/")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("AI Showcase", response.text)
+        self.assertEqual(self.client.get("/app.js").status_code, 200)
+        self.assertEqual(self.client.get("/styles.css").status_code, 200)
+        self.assertEqual(self.client.get("/api/health").status_code, 200)
+
     def test_empty_message_returns_422(self):
         response = self.client.post("/api/chat", json={"message": ""})
         self.assertEqual(response.status_code, 422)

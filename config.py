@@ -13,5 +13,5 @@ LLM_MODEL = os.environ.get(
     "LLM_MODEL",
     "Qwen/Qwen2.5-1.5B-Instruct" if DEVICE == "cuda" else "Qwen/Qwen2.5-0.5B-Instruct",
 )
-ENABLED_MODELS = {m.strip() for m in os.environ.get("ENABLED_MODELS", "llm").split(",") if m.strip()}
+ENABLED_MODELS = {m.strip() for m in os.environ.get("ENABLED_MODELS", "llm,classifier").split(",") if m.strip()}
 CORS_ORIGINS = os.environ.get("CORS_ORIGINS", "http://localhost:8501").split(",")

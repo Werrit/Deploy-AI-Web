@@ -1,22 +1,20 @@
 # AI Showcase
 
-Giao diện tiếng Việt cho 5 trang: Trang chủ, Phân loại hoa (ResNet-18), Phát hiện vật thể (YOLO11n), Truy hồi ảnh (CLIP ViT) và Chatbot RAG. Dùng HTML, CSS và JavaScript thuần, không cần npm hay chạy mô hình.
+Giao diện tiếng Việt cho 5 trang, dùng HTML/CSS/JavaScript thuần. Phân loại hoa và chatbot gọi API thật trên cùng server; phát hiện vật thể và truy hồi ảnh vẫn là minh họa.
 
-Từ thư mục gốc của dự án:
+Từ thư mục gốc, cài thư viện rồi chạy:
 
 ```bash
-python3 -m http.server 8080 --bind 127.0.0.1 --directory web
+python streamlit_app.py
 ```
 
-Mở <http://localhost:8080>. Các trang có đường dẫn riêng bằng hash: `#home`, `#flowers`, `#detection`, `#retrieval`, `#chat`. Liên kết giới thiệu nhóm là `#home/about`.
+Mở <http://localhost:7860>. Không chạy riêng `http.server` để sử dụng mô hình. Các trang dùng hash: `#home`, `#flowers`, `#detection`, `#retrieval`, `#chat`; giới thiệu nhóm ở `#home/about`.
 
-## Nội dung và dữ liệu mẫu
+## Nội dung và dữ liệu
 
-Sửa các phần `[Tên nhóm]`, `[Môn học / lớp]`, thành viên, phân công và cách sử dụng AI trong `index.html`. Không có thông tin cá nhân hay đóng góp nào được tự tạo.
+Điền thông tin nhóm trong `index.html`. Trang hoa gửi ảnh lên `/api/classifier/predict` khi bấm Nhận diện. Trang chat gửi câu hỏi và lịch sử tới `/api/chat`, đọc câu trả lời dạng stream và hiển thị các đoạn nguồn RAG. Nội dung trả về được hiển thị dưới dạng văn bản.
 
-Nhãn, độ tin cậy, khung giới hạn, điểm tương đồng và câu trả lời trong `app.js` đều là dữ liệu minh họa có nhãn rõ ràng. Danh sách lớp chưa đại diện cho tập huấn luyện thực tế của nhóm. Không có suy luận AI, tìm kiếm ngữ nghĩa hoặc gọi API. Khi chọn ảnh riêng, giao diện chỉ xem trước ảnh và không hiển thị dự đoán giả. Ảnh không được gửi lên máy chủ; dữ liệu giao diện chỉ tồn tại trong phiên trình duyệt.
-
-Các đoạn nguồn chat lấy từ `data/kb/doi_tra.md`, `giao_hang.md` và `thanh_toan.md` của dự án. Chọn câu hỏi gợi ý để xem mẫu. Câu hỏi tự do hiển thị thông báo về giới hạn của bản minh họa.
+Các khung phát hiện vật thể và kết quả truy hồi trong `app.js` là dữ liệu mẫu có nhãn rõ ràng. Upload ở hai trang này chỉ xem trước; không chạy YOLO/CLIP và không hiển thị dự đoán giả cho ảnh riêng.
 
 ## Thiết kế
 
@@ -29,10 +27,10 @@ Hướng dẫn sử dụng: [UI/UX Pro Max](https://github.com/nextlevelbuilder/
 `check.cjs` sử dụng Playwright và Chromium đã cài. Chạy khi máy chủ xem trước đang mở:
 
 ```bash
-node web/check.cjs
+node web/check.cjs http://127.0.0.1:7860/
 ```
 
-Nếu Playwright nằm ngoài `node_modules`, đặt `PLAYWRIGHT_MODULE` tới đường dẫn module. Có thể đặt `CHROMIUM_PATH` tới trình duyệt Chromium và `SCREENSHOT_DIR` để lưu ảnh chụp. Bộ kiểm tra bao gồm năm trang, bốn kích thước 320/768/1024/1440px, hai chế độ màu, tệp lỗi, ảnh tự chọn, bộ lọc khung, hộp thoại ảnh, nguồn chat và kiểm tra không gọi API.
+Nếu Playwright nằm ngoài `node_modules`, đặt `PLAYWRIGHT_MODULE` tới đường dẫn module. Có thể đặt `CHROMIUM_PATH` tới trình duyệt Chromium và `SCREENSHOT_DIR` để lưu ảnh chụp. Bộ kiểm tra bao gồm năm trang, bốn kích thước 320/768/1024/1440px, hai chế độ màu, tệp lỗi, ảnh tự chọn, bộ lọc khung, hộp thoại ảnh, API hoa/chat thật, nguồn chat, lịch sử, xử lý lỗi và văn bản an toàn.
 
 ## Tài nguyên
 

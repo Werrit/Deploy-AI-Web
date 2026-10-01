@@ -1,80 +1,545 @@
 <!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f6f3ec">
-  <meta name="description" content="Không gian giới thiệu dự án nhóm: phân loại hoa, phát hiện vật thể, truy hồi ảnh và chatbot RAG.">
-  <title>Trang chủ | AI Showcase</title>
-  <link rel="icon" href="assets/layers.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/be-vietnam-regular.woff" as="font" type="font/woff" crossorigin>
-  <link rel="preload" href="assets/be-vietnam-semibold.woff" as="font" type="font/woff" crossorigin>
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Bỏ qua điều hướng</a>
-  <header class="site-header">
-    <a class="brand" href="#home"><span class="brand-symbol" aria-hidden="true"><img src="assets/layers.svg" alt="" width="23" height="23"></span><span>AI <strong>Showcase</strong><small>DỰ ÁN NHÓM</small></span></a>
-    <nav aria-label="Điều hướng chính"><a href="#home" aria-current="page">Trang chủ</a><a href="#flowers">Phân loại hoa</a><a href="#detection">Phát hiện vật thể</a><a href="#retrieval">Truy hồi ảnh</a><a href="#chat">Chatbot RAG</a></nav>
-  </header>
-  <main id="main">
-    <section data-page="home" class="page home-page">
-      <div class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">DỰ ÁN NHÓM VỀ TRÍ TUỆ NHÂN TẠO</p>
-          <h1 tabindex="-1">Một góc nhìn mới <em>về AI.</em></h1>
-          <p class="hero-description">Khám phá bốn ứng dụng AI qua hình ảnh, tìm kiếm và hội thoại.</p>
-          <div class="hero-actions"><a class="button primary" href="#flowers">Khám phá <img src="assets/arrow-up-right.svg" alt=""></a><a class="text-link" href="#home/about">Về nhóm mình <img src="assets/arrow-right.svg" alt=""></a></div>
-        </div>
-        <figure class="hero-art"><img src="assets/hero.webp" alt="Hoa đồng tiền màu cam trong bình đất nung, cạnh những tấm ảnh phong cảnh và giấy ghi chú" width="1122" height="1402" fetchpriority="high"><figcaption>Ảnh minh họa được tạo bằng AI.</figcaption></figure>
-      </div>
-      <section class="projects-section" aria-labelledby="projects-heading">
-        <div class="section-heading"><h2 id="projects-heading">Bạn muốn khám phá điều gì?</h2><p>Chọn một ứng dụng để xem giao diện và kết quả minh họa.</p></div>
-        <div class="project-grid">
-          <a class="project-card flower-card" href="#flowers"><div class="card-visual"><img src="assets/flowers.webp" alt="Những bông hoa vàng dưới ánh nắng" width="1000" height="667" loading="lazy"></div><div class="card-copy"><div><span class="model-name">ResNet-18</span><h3>Gọi tên một bông hoa.</h3><p>Từ ảnh đầu vào đến các nhãn phân loại.</p></div><img src="assets/arrow-up-right.svg" alt=""></div></a>
-          <a class="project-card detection-card" href="#detection"><div class="card-visual"><img src="assets/objects.webp" alt="Một chú chó bên chiếc xe đạp và xe tải phía sau" width="768" height="576" loading="lazy"></div><div class="card-copy"><div><span class="model-name">YOLO11n</span><h3>Nhìn rõ từng vật thể.</h3><p>Vị trí, nhãn và độ tin cậy trên một khung hình.</p></div><img src="assets/arrow-up-right.svg" alt=""></div></a>
-          <a class="project-card retrieval-card" href="#retrieval"><div class="card-visual retrieval-mosaic"><img src="assets/mountain.webp" alt="Đỉnh núi dưới bầu trời rộng" width="1000" height="667" loading="lazy"><img src="assets/lake.webp" alt="Mặt hồ giữa những dãy núi" width="1000" height="667" loading="lazy"><img src="assets/forest.webp" alt="Nắng xuyên qua khu rừng" width="1000" height="667" loading="lazy"></div><div class="card-copy"><div><span class="model-name">CLIP ViT</span><h3>Tìm ảnh bằng ý tưởng.</h3><p>Khám phá bộ ảnh qua văn bản hoặc ảnh tham chiếu.</p></div><img src="assets/arrow-up-right.svg" alt=""></div></a>
-          <a class="project-card chatbot-card" href="#chat"><div class="card-visual knowledge-art"><img src="assets/hero.webp" alt="Những tấm ảnh phong cảnh và trang giấy trên bàn" width="1122" height="1402" loading="lazy"></div><div class="card-copy"><div><span class="model-name">Chatbot RAG</span><h3>Hỏi và tìm nguồn.</h3><p>Hội thoại đi cùng những tài liệu tham khảo.</p></div><img src="assets/arrow-up-right.svg" alt=""></div></a>
-        </div>
-      </section>
-      <section id="about" class="about-section" aria-labelledby="about-heading">
-        <div class="about-intro"><h2 id="about-heading">Chúng mình là<br><span class="placeholder">[Tên nhóm].</span></h2><p class="placeholder">[Giới thiệu nhóm, môn học và mục tiêu của dự án tại đây.]</p></div>
-        <div class="about-details"><div class="detail-row"><h3>Thành viên</h3><p class="placeholder">[Họ tên, mã sinh viên và vai trò của từng thành viên]</p></div><div class="detail-row"><h3>Công việc của nhóm</h3><p class="placeholder">[Phân công, đóng góp và chi tiết dự án]</p></div><div class="detail-row"><h3>Cách nhóm sử dụng AI</h3><p class="placeholder">[Công cụ AI đã dùng, cách hỗ trợ thiết kế và phần nhóm tự kiểm tra, cải thiện]</p></div><div class="detail-row"><h3>Quá trình thực hiện</h3><p class="placeholder">[Cách làm, khó khăn, bài học và nội dung sử dụng AI được giảng viên chấp thuận]</p></div></div>
-      </section>
-    </section>
-    <section data-page="flowers" class="page workspace-page" hidden></section>
-    <section data-page="detection" class="page workspace-page" hidden></section>
-    <section data-page="retrieval" class="page workspace-page" hidden>
-      <div class="page-heading"><span class="model-tag">CLIP ViT</span><h1 tabindex="-1">Từ ý tưởng <em>đến hình ảnh.</em></h1><p>Tìm kiếm bằng mô tả hoặc một ảnh tham chiếu.</p></div>
-      <div class="preview-notice"><strong>Kết quả minh họa</strong><span>Ảnh và điểm tương đồng là dữ liệu mẫu, không phải kết quả từ CLIP.</span></div>
-      <div class="retrieval-search panel">
-        <div class="segmented" role="group" aria-label="Loại truy vấn"><button class="selected" type="button" data-query-mode="text" aria-pressed="true">Tìm bằng văn bản</button><button type="button" data-query-mode="image" aria-pressed="false">Tìm bằng hình ảnh</button></div>
-        <form id="retrieval-form">
-          <div id="text-query"><label for="search-query">Bạn đang tìm hình ảnh nào?</label><div class="search-field"><img src="assets/search.svg" alt=""><input id="search-query" name="query" value="Núi và hồ giữa thiên nhiên" maxlength="300" required><button class="button primary" type="submit">Xem mẫu <img src="assets/arrow-right.svg" alt=""></button></div><div class="suggestions"><span>Chọn bộ ảnh mẫu</span><button type="button" data-query="mountains">Núi và hồ</button><button type="button" data-query="nature">Thiên nhiên</button><button type="button" data-query="flowers">Hoa và sắc màu</button></div></div>
-          <div id="image-query" hidden><label for="retrieval-upload">Ảnh tham chiếu</label><div class="image-query-row"><label class="button secondary upload-label"><img src="assets/upload.svg" alt="">Chọn ảnh<input id="retrieval-upload" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="retrieval-upload-help retrieval-upload-error"></label><span id="retrieval-filename" class="helper">Chưa chọn ảnh</span><img id="retrieval-reference" alt="Ảnh tham chiếu bạn đã chọn" hidden><button class="button primary" type="submit">Xem mẫu <img src="assets/arrow-right.svg" alt=""></button></div><p id="retrieval-upload-help" class="helper">JPG, PNG hoặc WebP. Tối đa 10 MB. Ảnh chỉ được xem trong trình duyệt.</p><p id="retrieval-upload-error" class="error" role="alert"></p></div>
-        </form>
-      </div>
-      <div class="gallery-toolbar"><div><h2 id="gallery-heading">Núi và hồ.</h2><p id="gallery-description" role="status">6 ảnh mẫu. Điểm tương đồng chỉ để minh họa.</p></div><label class="sort-control">Sắp xếp<select id="gallery-sort"><option value="score">Điểm tương đồng giảm dần</option><option value="name">Tên ảnh A-Z</option></select></label></div>
-      <div id="retrieval-gallery" class="retrieval-gallery" aria-labelledby="gallery-heading"></div>
-      <p class="workspace-footnote">Điểm tương đồng biểu thị quan hệ giữa truy vấn và ảnh, không phải độ tin cậy phân loại.</p>
-    </section>
-    <section data-page="chat" class="page workspace-page" hidden>
-      <div class="page-heading"><span class="model-tag">Chatbot RAG</span><h1 tabindex="-1">Một câu hỏi. <em>Có nguồn tham khảo.</em></h1><p>Xem cách hội thoại và tài liệu nguồn được trình bày cùng nhau.</p></div>
-      <div class="preview-notice"><strong>Hội thoại mẫu</strong><span>Các câu trả lời được soạn sẵn để minh họa giao diện, không gọi mô hình.</span></div>
-      <div class="chat-layout">
-        <aside class="panel knowledge-panel"><span class="square-icon"><img src="assets/layers.svg" alt=""></span><h2>Kiến thức ở ngay bên cạnh.</h2><p>Ví dụ sử dụng bộ tài liệu chính sách ShopLite có sẵn trong dự án.</p><div class="knowledge-status">6 tài liệu tham khảo</div><hr><h3>Tài liệu nguồn</h3><ul class="document-list"><li>Đổi trả <small>doi_tra.md</small></li><li>Giao hàng <small>giao_hang.md</small></li><li>Thanh toán <small>thanh_toan.md</small></li><li>Bảo hành <small>bao_hanh.md</small></li><li>Tài khoản <small>tai_khoan.md</small></li><li>Khách hàng thân thiết <small>khach_hang_than_thiet.md</small></li></ul><p class="helper">Chọn câu hỏi gợi ý để xem câu trả lời mẫu và mở phần nguồn để đọc đoạn trích.</p></aside>
-        <div class="panel chat-panel">
-          <div class="chat-panel-header"><div><span class="chat-avatar" aria-hidden="true"><img src="assets/layers.svg" alt=""></span><div><strong>Trợ lý ShopLite</strong><small>Giao diện hội thoại RAG</small></div></div><button id="clear-chat" class="text-button" type="button"><img src="assets/refresh-cw.svg" alt=""> Hội thoại mới</button></div>
-          <div id="chat-messages" class="chat-messages" role="log" aria-label="Hội thoại mẫu" aria-live="polite"></div>
-          <div class="chat-bottom"><div class="chat-prompts"><button type="button" data-chat-prompt="returns">Thời hạn đổi trả?</button><button type="button" data-chat-prompt="shipping">Bao lâu nhận hàng?</button><button type="button" data-chat-prompt="payment">Thanh toán thế nào?</button></div><form id="chat-form"><label for="chat-input">Câu hỏi của bạn</label><div class="composer"><textarea id="chat-input" rows="1" maxlength="1000" placeholder="Nhập câu hỏi hoặc chọn một gợi ý…" required aria-describedby="chat-hint chat-error"></textarea><button class="send-button" type="submit" aria-label="Gửi câu hỏi"><img src="assets/arrow-up-right.svg" alt=""></button></div></form><div class="composer-caption"><span id="chat-hint">Chế độ minh họa</span><span id="character-count">0 / 1000</span></div><p id="chat-error" class="error" role="alert"></p></div>
-        </div>
-      </div>
-      <p class="workspace-footnote">RAG truy xuất các đoạn tài liệu liên quan trước khi tạo câu trả lời. Giao diện này chỉ minh họa cách trình bày.</p>
-    </section>
-  </main>
-  <footer class="site-footer"><a class="footer-brand" href="#home">AI Showcase</a><span>Dự án nhóm | <span class="placeholder">[Môn học / lớp]</span></span><a href="#home/about">Về nhóm mình <img src="assets/arrow-up-right.svg" alt=""></a></footer>
-  <dialog id="image-dialog" aria-labelledby="dialog-title"><form method="dialog"><button class="dialog-close" aria-label="Đóng ảnh"><img src="assets/x.svg" alt=""></button></form><img id="dialog-image" alt=""><div class="dialog-copy"><h2 id="dialog-title"></h2><p id="dialog-score"></p></div></dialog>
-  <noscript><p class="no-script">Bật JavaScript để mở các trang mô hình và tương tác với giao diện mẫu.</p></noscript>
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#f6f3ec" />
+        <meta
+            name="description"
+            content="Không gian giới thiệu dự án nhóm: phân loại hoa, phát hiện vật thể, truy hồi ảnh và chatbot RAG."
+        />
+        <title>Trang chủ | AI Showcase</title>
+        <link rel="icon" href="assets/layers.svg" type="image/svg+xml" />
+        <link
+            rel="preload"
+            href="assets/be-vietnam-regular.woff"
+            as="font"
+            type="font/woff"
+            crossorigin
+        />
+        <link
+            rel="preload"
+            href="assets/be-vietnam-semibold.woff"
+            as="font"
+            type="font/woff"
+            crossorigin
+        />
+        <link rel="stylesheet" href="styles.css" />
+        <script src="app.js" defer></script>
+    </head>
+    <body>
+        <a class="skip-link" href="#main">Bỏ qua điều hướng</a>
+        <header class="site-header">
+            <a class="brand" href="#home"
+                ><span class="brand-symbol" aria-hidden="true"
+                    ><img
+                        src="assets/layers.svg"
+                        alt=""
+                        width="23"
+                        height="23" /></span
+                ><span
+                    >AI <strong>Showcase</strong><small>DỰ ÁN NHÓM</small></span
+                ></a
+            >
+            <nav aria-label="Điều hướng chính">
+                <a href="#home" aria-current="page">Trang chủ</a
+                ><a href="#flowers">Phân loại hoa</a
+                ><a href="#detection">Phát hiện vật thể</a
+                ><a href="#retrieval">Truy hồi ảnh</a
+                ><a href="#chat">Chatbot RAG</a>
+            </nav>
+        </header>
+        <main id="main">
+            <section data-page="home" class="page home-page">
+                <div class="hero">
+                    <div class="hero-copy">
+                        <p class="eyebrow">DỰ ÁN NHÓM VỀ TRÍ TUỆ NHÂN TẠO</p>
+                        <h1 tabindex="-1">Một góc nhìn mới <em>về AI.</em></h1>
+                        <p class="hero-description">
+                            Khám phá bốn ứng dụng AI qua hình ảnh, tìm kiếm và
+                            hội thoại.
+                        </p>
+                        <div class="hero-actions">
+                            <a class="button primary" href="#flowers"
+                                >Khám phá
+                                <img
+                                    src="assets/arrow-up-right.svg"
+                                    alt="" /></a
+                            ><a class="text-link" href="#home/about"
+                                >Về nhóm mình
+                                <img src="assets/arrow-right.svg" alt=""
+                            /></a>
+                        </div>
+                    </div>
+                    <figure class="hero-art">
+                        <img
+                            src="assets/hero.webp"
+                            alt="Hoa đồng tiền màu cam trong bình đất nung, cạnh những tấm ảnh phong cảnh và giấy ghi chú"
+                            width="1122"
+                            height="1402"
+                            fetchpriority="high"
+                        />
+                        <figcaption>Ảnh minh họa được tạo bằng AI.</figcaption>
+                    </figure>
+                </div>
+                <section
+                    class="projects-section"
+                    aria-labelledby="projects-heading"
+                >
+                    <div class="section-heading">
+                        <h2 id="projects-heading">
+                            Bạn muốn khám phá điều gì?
+                        </h2>
+                        <p>
+                            Chọn một ứng dụng để xem giao diện và kết quả minh
+                            họa.
+                        </p>
+                    </div>
+                    <div class="project-grid">
+                        <a class="project-card flower-card" href="#flowers"
+                            ><div class="card-visual">
+                                <img
+                                    src="assets/flowers.webp"
+                                    alt="Những bông hoa vàng dưới ánh nắng"
+                                    width="1000"
+                                    height="667"
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div class="card-copy">
+                                <div>
+                                    <span class="model-name">ResNet-18</span>
+                                    <h3>Gọi tên một bông hoa.</h3>
+                                    <p>
+                                        Từ ảnh đầu vào đến các nhãn phân loại.
+                                    </p>
+                                </div>
+                                <img
+                                    src="assets/arrow-up-right.svg"
+                                    alt=""
+                                /></div
+                        ></a>
+                        <a class="project-card detection-card" href="#detection"
+                            ><div class="card-visual">
+                                <img
+                                    src="assets/objects.webp"
+                                    alt="Một chú chó bên chiếc xe đạp và xe tải phía sau"
+                                    width="768"
+                                    height="576"
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div class="card-copy">
+                                <div>
+                                    <span class="model-name">YOLO11n</span>
+                                    <h3>Nhìn rõ từng vật thể.</h3>
+                                    <p>
+                                        Vị trí, nhãn và độ tin cậy trên một
+                                        khung hình.
+                                    </p>
+                                </div>
+                                <img
+                                    src="assets/arrow-up-right.svg"
+                                    alt=""
+                                /></div
+                        ></a>
+                        <a class="project-card retrieval-card" href="#retrieval"
+                            ><div class="card-visual retrieval-mosaic">
+                                <img
+                                    src="assets/mountain.webp"
+                                    alt="Đỉnh núi dưới bầu trời rộng"
+                                    width="1000"
+                                    height="667"
+                                    loading="lazy"
+                                /><img
+                                    src="assets/lake.webp"
+                                    alt="Mặt hồ giữa những dãy núi"
+                                    width="1000"
+                                    height="667"
+                                    loading="lazy"
+                                /><img
+                                    src="assets/forest.webp"
+                                    alt="Nắng xuyên qua khu rừng"
+                                    width="1000"
+                                    height="667"
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div class="card-copy">
+                                <div>
+                                    <span class="model-name">CLIP ViT</span>
+                                    <h3>Tìm ảnh bằng ý tưởng.</h3>
+                                    <p>
+                                        Khám phá bộ ảnh qua văn bản hoặc ảnh
+                                        tham chiếu.
+                                    </p>
+                                </div>
+                                <img
+                                    src="assets/arrow-up-right.svg"
+                                    alt=""
+                                /></div
+                        ></a>
+                        <a class="project-card chatbot-card" href="#chat"
+                            ><div class="card-visual knowledge-art">
+                                <img
+                                    src="assets/hero.webp"
+                                    alt="Những tấm ảnh phong cảnh và trang giấy trên bàn"
+                                    width="1122"
+                                    height="1402"
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div class="card-copy">
+                                <div>
+                                    <span class="model-name">Chatbot RAG</span>
+                                    <h3>Hỏi và tìm nguồn.</h3>
+                                    <p>
+                                        Hội thoại đi cùng những tài liệu tham
+                                        khảo.
+                                    </p>
+                                </div>
+                                <img
+                                    src="assets/arrow-up-right.svg"
+                                    alt=""
+                                /></div
+                        ></a>
+                    </div>
+                </section>
+                <section
+                    id="about"
+                    class="about-section"
+                    aria-labelledby="about-heading"
+                >
+                    <div class="about-intro">
+                        <h2 id="about-heading">
+                            Chúng mình là<br /><span class="placeholder"
+                                >Nhóm 7</span
+                            >
+                        </h2>
+                        <p class="placeholder">
+                            [Giới thiệu nhóm, môn học và mục tiêu của dự án tại
+                            đây.]
+                        </p>
+                    </div>
+                    <div class="about-details">
+                        <div class="detail-row">
+                            <h3>Thành viên</h3>
+                            <p class="placeholder">
+                                Lương Hoàng Phúc - 24105959 <br />
+                                Nguyễn Hữu Lan - 24103589 <br />
+                                Nguyễn Công Phước - 24103624 <br />
+                                Nguyễn Thái Sơn - 24107666
+                            </p>
+                        </div>
+                        <div class="detail-row">
+                            <h3>Công việc của nhóm</h3>
+                            <p class="placeholder">
+                                [Phân công, đóng góp và chi tiết dự án]
+                            </p>
+                        </div>
+                        <div class="detail-row">
+                            <h3>Cách nhóm sử dụng AI</h3>
+                            <p class="placeholder">
+                                [Công cụ AI đã dùng, cách hỗ trợ thiết kế và
+                                phần nhóm tự kiểm tra, cải thiện]
+                            </p>
+                        </div>
+                        <div class="detail-row">
+                            <h3>Quá trình thực hiện</h3>
+                            <p class="placeholder">
+                                [Cách làm, khó khăn, bài học và nội dung sử dụng
+                                AI được giảng viên chấp thuận]
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <section
+                data-page="flowers"
+                class="page workspace-page"
+                hidden
+            ></section>
+            <section
+                data-page="detection"
+                class="page workspace-page"
+                hidden
+            ></section>
+            <section data-page="retrieval" class="page workspace-page" hidden>
+                <div class="page-heading">
+                    <span class="model-tag">CLIP ViT</span>
+                    <h1 tabindex="-1">Từ ý tưởng <em>đến hình ảnh.</em></h1>
+                    <p>Tìm kiếm bằng mô tả hoặc một ảnh tham chiếu.</p>
+                </div>
+                <div class="preview-notice">
+                    <strong>Kết quả minh họa</strong
+                    ><span
+                        >Ảnh và điểm tương đồng là dữ liệu mẫu, không phải kết
+                        quả từ CLIP.</span
+                    >
+                </div>
+                <div class="retrieval-search panel">
+                    <div
+                        class="segmented"
+                        role="group"
+                        aria-label="Loại truy vấn"
+                    >
+                        <button
+                            class="selected"
+                            type="button"
+                            data-query-mode="text"
+                            aria-pressed="true"
+                        >
+                            Tìm bằng văn bản</button
+                        ><button
+                            type="button"
+                            data-query-mode="image"
+                            aria-pressed="false"
+                        >
+                            Tìm bằng hình ảnh
+                        </button>
+                    </div>
+                    <form id="retrieval-form">
+                        <div id="text-query">
+                            <label for="search-query"
+                                >Bạn đang tìm hình ảnh nào?</label
+                            >
+                            <div class="search-field">
+                                <img src="assets/search.svg" alt="" /><input
+                                    id="search-query"
+                                    name="query"
+                                    value="Núi và hồ giữa thiên nhiên"
+                                    maxlength="300"
+                                    required
+                                /><button class="button primary" type="submit">
+                                    Xem mẫu
+                                    <img src="assets/arrow-right.svg" alt="" />
+                                </button>
+                            </div>
+                            <div class="suggestions">
+                                <span>Chọn bộ ảnh mẫu</span
+                                ><button type="button" data-query="mountains">
+                                    Núi và hồ</button
+                                ><button type="button" data-query="nature">
+                                    Thiên nhiên</button
+                                ><button type="button" data-query="flowers">
+                                    Hoa và sắc màu
+                                </button>
+                            </div>
+                        </div>
+                        <div id="image-query" hidden>
+                            <label for="retrieval-upload">Ảnh tham chiếu</label>
+                            <div class="image-query-row">
+                                <label class="button secondary upload-label"
+                                    ><img src="assets/upload.svg" alt="" />Chọn
+                                    ảnh<input
+                                        id="retrieval-upload"
+                                        type="file"
+                                        accept="image/jpeg,image/png,image/webp"
+                                        aria-describedby="retrieval-upload-help retrieval-upload-error" /></label
+                                ><span id="retrieval-filename" class="helper"
+                                    >Chưa chọn ảnh</span
+                                ><img
+                                    id="retrieval-reference"
+                                    alt="Ảnh tham chiếu bạn đã chọn"
+                                    hidden
+                                /><button class="button primary" type="submit">
+                                    Xem mẫu
+                                    <img src="assets/arrow-right.svg" alt="" />
+                                </button>
+                            </div>
+                            <p id="retrieval-upload-help" class="helper">
+                                JPG, PNG hoặc WebP. Tối đa 10 MB. Ảnh chỉ được
+                                xem trong trình duyệt.
+                            </p>
+                            <p
+                                id="retrieval-upload-error"
+                                class="error"
+                                role="alert"
+                            ></p>
+                        </div>
+                    </form>
+                </div>
+                <div class="gallery-toolbar">
+                    <div>
+                        <h2 id="gallery-heading">Núi và hồ.</h2>
+                        <p id="gallery-description" role="status">
+                            6 ảnh mẫu. Điểm tương đồng chỉ để minh họa.
+                        </p>
+                    </div>
+                    <label class="sort-control"
+                        >Sắp xếp<select id="gallery-sort">
+                            <option value="score">
+                                Điểm tương đồng giảm dần
+                            </option>
+                            <option value="name">Tên ảnh A-Z</option>
+                        </select></label
+                    >
+                </div>
+                <div
+                    id="retrieval-gallery"
+                    class="retrieval-gallery"
+                    aria-labelledby="gallery-heading"
+                ></div>
+                <p class="workspace-footnote">
+                    Điểm tương đồng biểu thị quan hệ giữa truy vấn và ảnh, không
+                    phải độ tin cậy phân loại.
+                </p>
+            </section>
+            <section data-page="chat" class="page workspace-page" hidden>
+                <div class="page-heading">
+                    <span class="model-tag">Chatbot RAG</span>
+                    <h1 tabindex="-1">
+                        Một câu hỏi. <em>Có nguồn tham khảo.</em>
+                    </h1>
+                    <p>
+                        Hỏi đáp chính sách ShopLite với Qwen và tài liệu nguồn.
+                    </p>
+                </div>
+                <div class="preview-notice">
+                    <strong>Chatbot đang dùng mô hình thật</strong
+                    ><span
+                        >Qwen trả lời dựa trên tài liệu ShopLite và hiển thị các
+                        đoạn nguồn đã truy xuất.</span
+                    >
+                </div>
+                <div class="chat-layout">
+                    <aside class="panel knowledge-panel">
+                        <span class="square-icon"
+                            ><img src="assets/layers.svg" alt=""
+                        /></span>
+                        <h2>Kiến thức ở ngay bên cạnh.</h2>
+                        <p>
+                            Trợ lý dùng bộ tài liệu chính sách ShopLite có sẵn
+                            trong dự án.
+                        </p>
+                        <div class="knowledge-status">6 tài liệu tham khảo</div>
+                        <hr />
+                        <h3>Tài liệu nguồn</h3>
+                        <ul class="document-list">
+                            <li>Đổi trả <small>doi_tra.md</small></li>
+                            <li>Giao hàng <small>giao_hang.md</small></li>
+                            <li>Thanh toán <small>thanh_toan.md</small></li>
+                            <li>Bảo hành <small>bao_hanh.md</small></li>
+                            <li>Tài khoản <small>tai_khoan.md</small></li>
+                            <li>
+                                Khách hàng thân thiết
+                                <small>khach_hang_than_thiet.md</small>
+                            </li>
+                        </ul>
+                        <p class="helper">
+                            Nhập câu hỏi hoặc chọn gợi ý, rồi mở phần nguồn để đọc
+                            các đoạn tài liệu đã dùng.
+                        </p>
+                    </aside>
+                    <div class="panel chat-panel">
+                        <div class="chat-panel-header">
+                            <div>
+                                <span class="chat-avatar" aria-hidden="true"
+                                    ><img src="assets/layers.svg" alt=""
+                                /></span>
+                                <div>
+                                    <strong>Trợ lý ShopLite</strong
+                                    ><small>Giao diện hội thoại RAG</small>
+                                </div>
+                            </div>
+                            <button
+                                id="clear-chat"
+                                class="text-button"
+                                type="button"
+                            >
+                                <img src="assets/refresh-cw.svg" alt="" /> Hội
+                                thoại mới
+                            </button>
+                        </div>
+                        <div
+                            id="chat-messages"
+                            class="chat-messages"
+                            role="log"
+                            aria-label="Hội thoại với trợ lý ShopLite"
+                            aria-live="polite"
+                        ></div>
+                        <div class="chat-bottom">
+                            <div class="chat-prompts">
+                                <button
+                                    type="button"
+                                    data-chat-prompt="returns"
+                                >
+                                    Thời hạn đổi trả?</button
+                                ><button
+                                    type="button"
+                                    data-chat-prompt="shipping"
+                                >
+                                    Bao lâu nhận hàng?</button
+                                ><button
+                                    type="button"
+                                    data-chat-prompt="payment"
+                                >
+                                    Thanh toán thế nào?
+                                </button>
+                            </div>
+                            <form id="chat-form">
+                                <label for="chat-input">Câu hỏi của bạn</label>
+                                <div class="composer">
+                                    <textarea
+                                        id="chat-input"
+                                        rows="1"
+                                        maxlength="1000"
+                                        placeholder="Nhập câu hỏi hoặc chọn một gợi ý…"
+                                        required
+                                        aria-describedby="chat-hint chat-error"
+                                    ></textarea
+                                    ><button
+                                        class="send-button"
+                                        type="submit"
+                                        aria-label="Gửi câu hỏi"
+                                    >
+                                        <img
+                                            src="assets/arrow-up-right.svg"
+                                            alt=""
+                                        />
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="composer-caption">
+                                <span id="chat-hint">Qwen + RAG</span
+                                ><span id="character-count">0 / 1000</span>
+                            </div>
+                            <p id="chat-error" class="error" role="alert"></p>
+                        </div>
+                    </div>
+                </div>
+                <p class="workspace-footnote">
+                    RAG truy xuất các đoạn tài liệu liên quan trước khi tạo câu
+                    trả lời. Kiểm tra nguồn trước khi sử dụng thông tin.
+                </p>
+            </section>
+        </main>
+        <footer class="site-footer">
+            <a class="footer-brand" href="#home">AI Showcase</a
+            ><span
+                >Dự án nhóm |
+                <span class="placeholder">[Môn học / lớp]</span></span
+            ><a href="#home/about"
+                >Về nhóm mình <img src="assets/arrow-up-right.svg" alt=""
+            /></a>
+        </footer>
+        <dialog id="image-dialog" aria-labelledby="dialog-title">
+            <form method="dialog">
+                <button class="dialog-close" aria-label="Đóng ảnh">
+                    <img src="assets/x.svg" alt="" />
+                </button>
+            </form>
+            <img id="dialog-image" alt="" />
+            <div class="dialog-copy">
+                <h2 id="dialog-title"></h2>
+                <p id="dialog-score"></p>
+            </div>
+        </dialog>
+        <noscript
+            ><p class="no-script">
+                Bật JavaScript để mở các trang mô hình và tương tác với giao
+                diện mẫu.
+            </p></noscript
+        >
+    </body>
 </html>

@@ -6,3 +6,9 @@
 **/__pycache__
 *.zip
 uv.lock
+shell.nix
+data/flowers
+artifacts/classifier/split.json
+node_modules
+.cache
+docs

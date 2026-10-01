@@ -6,6 +6,4 @@ accelerate
 faiss-cpu
 fastapi>=0.115
 uvicorn[standard]
-streamlit>=1.50
-requests
 python-multipart>=0.0.20
