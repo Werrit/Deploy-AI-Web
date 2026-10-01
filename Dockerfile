@@ -2,13 +2,14 @@ FROM python:3.11-slim
 
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu \
+RUN pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu \
  && pip install --no-cache-dir -r requirements.txt
 
 COPY config.py streamlit_app.py ./
 COPY core/ core/
 COPY api/ api/
 COPY data/ data/
+COPY artifacts/ artifacts/
 
 ENV APP_ROOT=/app HF_HOME=/app/.cache LLM_MODEL=Qwen/Qwen2.5-0.5B-Instruct API_URL=http://127.0.0.1:8000
 RUN useradd -m app && chown -R app /app

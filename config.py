@@ -6,6 +6,7 @@ import torch
 
 ROOT = Path(os.environ.get("APP_ROOT", Path(__file__).resolve().parent))
 DATA_DIR = ROOT / "data"
+ART_DIR = ROOT / "artifacts"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 EMBED_MODEL = os.environ.get("EMBED_MODEL", "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
 LLM_MODEL = os.environ.get(

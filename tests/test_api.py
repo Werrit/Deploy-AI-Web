@@ -1,5 +1,8 @@
 import os
+from io import BytesIO
 import unittest
+
+from PIL import Image
 
 os.environ["ENABLED_MODELS"] = ""
 
@@ -17,6 +20,12 @@ class FakeBot:
     def answer(self, message, history=None):
         assert message == "Đổi trả?"
         return {"answer": "Được 7 ngày.", "sources": []}
+
+
+class FakeClassifier:
+    def predict(self, image):
+        assert image.size == (2, 2)
+        return {"predictions": [{"label": "daisy", "score": 0.9}], "confident": True}
 
 
 class ChatApiTest(unittest.TestCase):
@@ -50,6 +59,40 @@ class ChatApiTest(unittest.TestCase):
         main.MODELS.clear()
         response = self.client.post("/api/chat/sync", json={"message": "Đổi trả?"})
         self.assertEqual(response.status_code, 503)
+
+    def test_classifier_predicts_uploaded_image(self):
+        image_bytes = BytesIO()
+        Image.new("RGB", (2, 2)).save(image_bytes, format="PNG")
+        main.MODELS["classifier"] = FakeClassifier()
+        response = self.client.post(
+            "/api/classifier/predict",
+            files={"file": ("flower.png", image_bytes.getvalue(), "image/png")},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["predictions"][0]["label"], "daisy")
+
+    def test_classifier_rejects_invalid_image(self):
+        main.MODELS["classifier"] = FakeClassifier()
+        response = self.client.post(
+            "/api/classifier/predict",
+            files={"file": ("not-image.png", b"invalid", "image/png")},
+        )
+        self.assertEqual(response.status_code, 400)
+
+    def test_unloaded_classifier_returns_503(self):
+        response = self.client.post(
+            "/api/classifier/predict",
+            files={"file": ("flower.png", b"invalid", "image/png")},
+        )
+        self.assertEqual(response.status_code, 503)
+
+    def test_classifier_rejects_oversized_upload(self):
+        main.MODELS["classifier"] = FakeClassifier()
+        response = self.client.post(
+            "/api/classifier/predict",
+            files={"file": ("flower.png", b"x" * (10 * 1024 * 1024 + 1), "image/png")},
+        )
+        self.assertEqual(response.status_code, 413)
 
 
 if __name__ == "__main__":

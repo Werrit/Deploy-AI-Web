@@ -7,13 +7,19 @@ sdk: docker
 app_port: 7860
 ---
 
-# ShopLite Chatbot RAG
+# AI Web Apps
 
-Chatbot chăm sóc khách hàng theo ứng dụng 4 trong notebook `AI_Web_Apps_Streamlit_React.ipynb`: sáu tài liệu chính sách ShopLite được chia theo mục `##`, truy xuất bằng MiniLM đa ngôn ngữ và FAISS, rồi Qwen trả lời bằng tiếng Việt và dẫn nguồn. `core/` chỉ suy luận, FastAPI giữ mô hình, Streamlit gọi API.
+Giao diện hiện có hai ứng dụng: phân loại ảnh hoa bằng ResNet-18 fine-tune trên TF Flowers và trợ lý chăm sóc khách hàng Qwen + RAG trên sáu tài liệu ShopLite. YOLO11n và CLIP + FAISS được hiển thị trong bộ chọn nhưng chưa được tích hợp. `core/` chứa suy luận/huấn luyện, FastAPI giữ mô hình, Streamlit gọi API.
 
 ## Chạy trên máy
 
-Yêu cầu Python 3.11 trở lên. Cài thư viện bằng `pip install -r requirements.txt` (hoặc `uv sync` nếu dùng `pyproject.toml`). Lần đầu chạy, mô hình được tải từ Hugging Face.
+Yêu cầu Python 3.13 trở lên theo `pyproject.toml`. Cài thư viện bằng `pip install -r requirements.txt` (hoặc `uv sync`). Repo đã có checkpoint trong `artifacts/classifier/` và bộ dữ liệu Flowers trong `data/flowers/`, nên có thể chạy classifier ngay. Để huấn luyện lại, chạy lệnh dưới đây; lệnh sẽ tự tải Flowers và pretrained ResNet-18 nếu chưa có:
+
+```bash
+python -m core.train_classifier
+```
+
+Mặc định chạy 5 epoch; có thể dùng `--epochs` và `--batch-size` để điều chỉnh. Checkpoint và chỉ số Accuracy, macro-F1, ma trận nhầm lẫn được lưu trong `artifacts/classifier/`. Bật classifier cùng chatbot bằng biến môi trường `ENABLED_MODELS=llm,classifier` trước khi chạy API. Lần đầu chạy chatbot, mô hình ngôn ngữ cũng được tải từ Hugging Face.
 
 Mở hai terminal tại thư mục dự án:
 
@@ -27,9 +33,9 @@ streamlit run streamlit_app.py
 
 Giao diện ở `http://localhost:8501`, API ở `http://localhost:8000/docs`, trạng thái mô hình ở `http://localhost:8000/api/health`. Chạy test API không cần tải mô hình bằng `python -m unittest discover -s tests -v`.
 
-## Ghép với ba ứng dụng còn lại
+## Ghép với hai ứng dụng còn lại
 
-Chatbot có router riêng tại `api/routers/chat.py`. Mỗi nhóm đặt phần suy luận trong `core/`, tạo router riêng trong `api/routers/`, rồi thêm router bằng `app.include_router(...)` và đăng ký lớp nạp mô hình trong `LOADERS` ở `api/main.py`. Bật tên mô hình tương ứng qua `ENABLED_MODELS`; không cần sửa router chatbot.
+Chatbot và classifier có router riêng trong `api/routers/`. Mỗi ứng dụng mới đặt phần suy luận trong `core/`, tạo router riêng, rồi thêm router bằng `app.include_router(...)` và đăng ký lớp nạp trong `LOADERS` ở `api/main.py`. Bật tên mô hình tương ứng qua `ENABLED_MODELS`.
 
 ## Hugging Face Spaces
 
@@ -37,7 +43,7 @@ Tài khoản Hugging Face cần gói **PRO** để tạo Space Docker. Tạo Spa
 
 | Biến môi trường | Mặc định | Ý nghĩa |
 |---|---|---|
-| `ENABLED_MODELS` | `llm` | Bật/tắt mô hình chatbot |
+| `ENABLED_MODELS` | `llm` | Bật/tắt mô hình, ví dụ `llm,classifier` |
 | `LLM_MODEL` | Qwen2.5 1.5B (GPU) / 0.5B (CPU) | Mô hình sinh câu trả lời |
 | `EMBED_MODEL` | `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` | Mô hình truy xuất |
 | `API_URL` | `http://127.0.0.1:8000` | Địa chỉ FastAPI mà Streamlit gọi |
